@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useMemo } from "react";
+
 import type { MenuItem } from "./index";
 
 interface SidebarMenuItemProps {
@@ -10,7 +10,6 @@ interface SidebarMenuItemProps {
 }
 
 export const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, selected, setSelected }) => {
-  console.log(selected, "SELECTED");
   return (
     <Link
       href={item.src}

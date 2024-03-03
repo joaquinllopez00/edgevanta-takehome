@@ -10,8 +10,7 @@ export const Message: React.FC<MessageProps> = ({ message, username }) => {
   const displayedName = isCurrentUser ? "You" : message.user;
   const borderRadiusClassBasedOnUser = isCurrentUser ? "rounded-tr-sm" : "rounded-tl-sm";
   const justifyContentClassBasedOnUser = isCurrentUser ? "justify-end" : "justify-start";
-  // Adjusting background color based on the user
-  const backgroundColorClassBasedOnUser = isCurrentUser ? "bg-blue-100" : "bg-gray-100"; // Example: making the current user's message background lighter
+  const backgroundColorClassBasedOnUser = isCurrentUser ? "bg-blue-100" : "bg-gray-100";
 
   return (
     <div className={`flex w-full ${justifyContentClassBasedOnUser}`}>

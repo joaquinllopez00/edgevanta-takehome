@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "convex/react";
 
 import { User } from "@/lib/enums";
 import { api } from "@/convex/_generated/api";
-import { Message as MessageType } from "@/lib/types";
 import { Message } from "./Message";
 
 interface MessageTerminalProps {
@@ -28,8 +27,8 @@ export const MessageTerminal: React.FC<MessageTerminalProps> = ({ username }) =>
 
   const handleSubmitMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const cleanedMessage = newMessage.trim();
     try {
+      const cleanedMessage = newMessage.trim();
       mutateMessage({ message: cleanedMessage, user: username });
       setNewMessage("");
     } catch (error: any) {
@@ -44,7 +43,7 @@ export const MessageTerminal: React.FC<MessageTerminalProps> = ({ username }) =>
 
   return (
     <div className="p-5">
-      <ul className="h-[60vh] flex flex-col gap-6 w-full overflow-scroll" ref={MessageContainerRef}>
+      <ul className="h-[60vh] py-4 flex flex-col gap-6 w-full overflow-scroll" ref={MessageContainerRef}>
         {messages?.map((message, index) => (
           <Message key={index} message={message} username={username} />
         ))}
