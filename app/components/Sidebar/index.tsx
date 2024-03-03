@@ -20,7 +20,7 @@ export const Sidebar = () => {
       <div className="w-64 bg-gray-100 text-black h-full">
         <nav className="flex flex-col space-y-2">
           <div className="border-b border-b-gray-300 p-5">
-            <Link href="/">
+            <Link href="/" onClick={() => setSelected(null)}>
               <div className="flex gap-3 items-center">
                 <Image src="/assets/webp/logo.webp" alt="Edgevanta Logo" width={50} height={50} />
                 <h5>Joaquin Takehome</h5>
