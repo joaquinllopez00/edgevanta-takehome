@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Joaquin Lopez - Edgevanta Takehome",
   description: "The takehome project for Edgevanta",
+  icons: "/assets/logo.ico",
 };
 
 export default function RootLayout({

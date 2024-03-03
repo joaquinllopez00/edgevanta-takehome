@@ -14,6 +14,7 @@ interface MessageTerminalProps {
 export const MessageTerminal: React.FC<MessageTerminalProps> = ({ username }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [newMessage, setNewMessage] = useState<string>("");
+  const maxInputLength = 1000;
 
   const MessageContainerRef = useRef<HTMLUListElement>(null);
   const mutateMessage = useMutation(api.messages.createMessage);
@@ -27,8 +28,9 @@ export const MessageTerminal: React.FC<MessageTerminalProps> = ({ username }) =>
 
   const handleSubmitMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const cleanedMessage = newMessage.trim();
     try {
-      const messageId = mutateMessage({ message: newMessage, user: username });
+      mutateMessage({ message: cleanedMessage, user: username });
       setNewMessage("");
     } catch (error: any) {
       console.error(error);
@@ -36,15 +38,8 @@ export const MessageTerminal: React.FC<MessageTerminalProps> = ({ username }) =>
     }
   };
 
-  const handleChange = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // If pressing enter, submit the message
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmitMessage(e as unknown as React.FormEvent<HTMLFormElement>); // TODO: Fix this type casting
-      return;
-    }
-
-    setNewMessage((e.target as HTMLTextAreaElement).value);
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewMessage(e.target.value);
   };
 
   return (
@@ -59,8 +54,9 @@ export const MessageTerminal: React.FC<MessageTerminalProps> = ({ username }) =>
           name="newMessage"
           id="newMessage"
           value={newMessage}
-          onChange={(e) => handleChange(e as unknown as React.KeyboardEvent<HTMLTextAreaElement>)}
+          onChange={(e) => handleChange(e)}
           cols={30}
+          maxLength={maxInputLength}
           rows={10}
           className="p-4 text-sm text-gray-700 bg-blue-50 border border-blue-400 rounded-lg focus:ring-blue-400 focus:border-blue-500 block w-full transition duration-150 ease-in-out"
           placeholder="Type your message here..."
