@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { MenuItemsFixture } from "./fixture/MenuItemsFixture";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export type MenuItem = {
   title: string;
@@ -14,6 +15,15 @@ export type MenuItem = {
 export const Sidebar = () => {
   const [open, setOpen] = useState(true); // TODO: Implement open/close sidebar
   const [selected, setSelected] = useState<MenuItem | null>(null);
+  const pathname = usePathname();
+  const usernameFromPath = pathname.split("/").pop() || "";
+  const selectedItem = MenuItemsFixture.find((item) => item.title.toLowerCase() === usernameFromPath.toLowerCase());
+
+  useEffect(() => {
+    if (selectedItem) {
+      setSelected(selectedItem);
+    }
+  }, [selectedItem]);
 
   return (
     <aside>
